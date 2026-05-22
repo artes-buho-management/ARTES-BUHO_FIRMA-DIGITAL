@@ -1,0 +1,42 @@
+{
+  "name": "artes-buho-firma-digital",
+  "version": "1.0.0",
+  "description": "Firma digital PAdES para documentos de ARTES BUHO MANAGEMENT (desarrollado por RUBEN COTON)",
+  "main": "src/index.js",
+  "bin": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "build": "npx pkg . --target node18-win-x64 --output dist/ArtesBuho-FirmaDigital.exe"
+  },
+  "pkg": {
+    "assets": [
+      "public/**/*",
+      "src/scripts/**/*"
+    ],
+    "outputPath": "dist"
+  },
+  "keywords": [
+    "artes-buho",
+    "firma-digital",
+    "pdf",
+    "certificado",
+    "pades",
+    "eidas"
+  ],
+  "author": "RUBEN COTON",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
+    "@signpdf/placeholder-pdf-lib": "^3.3.0",
+    "@signpdf/signpdf": "^3.3.0",
+    "@signpdf/utils": "^3.3.0",
+    "express": "^5.2.1",
+    "multer": "^2.1.1",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1",
+    "rcedit": "^5.0.2"
+  }
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARTES BUHO — Firma Digital</title>
+  <link rel="icon" href="/assets/icon.png" type="image/png">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <img src="/assets/icon.png" alt="ARTES BUHO Firma Digital" class="sidebar-logo">
+        <div class="sidebar-brand">
+          <span class="sidebar-title">ARTES BUHO</span>
+          <span class="sidebar-subtitle">FIRMA DIGITAL</span>
+        </div>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="menu-item active" data-view="sign">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Firmar PDF
+        </li>
+        <li class="menu-item" data-view="history">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Historial
+        </li>
+        <li class="menu-item" data-view="status">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Estado
+        </li>
+      </ul>
+      <div class="sidebar-footer">
+        <div class="status-indicator" id="statusDot">
+          <span class="dot"></span>
+          <span class="status-text">Comprobando...</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="content">
+      <!-- Sign view -->
+      <section class="view active" id="view-sign">
+        <div class="view-header">
+          <h1>Firmar documento PDF</h1>
+          <p>Arrastra un PDF o haz clic para seleccionarlo</p>
+        </div>
+        <div class="upload-zone" id="uploadZone">
+          <div class="upload-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <path d="M12 18v-6"/>
+              <path d="M9 15l3-3 3 3"/>
+            </svg>
+          </div>
+          <p class="upload-text">Arrastra tu PDF aqui</p>
+          <p class="upload-subtext">o haz clic para seleccionar archivo</p>
+          <input type="file" id="fileInput" accept=".pdf" hidden>
+        </div>
+        <div class="file-info hidden" id="fileInfo">
+          <div class="file-card">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E63027" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <div class="file-details">
+              <span class="file-name" id="fileName"></span>
+              <span class="file-size" id="fileSize"></span>
+            </div>
+            <button class="btn-remove" id="btnRemove" title="Quitar archivo">&times;</button>
+          </div>
+          <button class="btn-sign" id="btnSign">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Firmar con certificado digital
+          </button>
+        </div>
+        <div class="result hidden" id="result">
+          <div class="result-success">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2e9d4a" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <h2>Documento firmado</h2>
+            <p id="resultMessage"></p>
+            <div class="result-actions">
+              <a class="btn-download" id="btnDownload" href="#">Descargar PDF firmado</a>
+              <button class="btn-secondary" id="btnSignAnother">Firmar otro documento</button>
+            </div>
+          </div>
+        </div>
+        <div class="loading hidden" id="loading">
+          <div class="spinner"></div>
+          <p>Firmando documento...</p>
+          <p class="loading-step" id="loadingStep">Preparando...</p>
+        </div>
+      </section>
+
+      <!-- History view -->
+      <section class="view" id="view-history">
+        <div class="view-header">
+          <h1>Historial de firmas</h1>
+          <p>Documentos firmados anteriormente</p>
+        </div>
+        <div class="history-list" id="historyList">
+          <p class="empty-state">Cargando historial...</p>
+        </div>
+      </section>
+
+      <!-- Status view -->
+      <section class="view" id="view-status">
+        <div class="view-header">
+          <h1>Estado del sistema</h1>
+          <p>Certificados y componentes de firma</p>
+        </div>
+        <div class="status-cards" id="statusCards">
+          <p class="empty-state">Consultando estado...</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <!-- Toast notifications container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Modal: Sin certificado digital -->
+  <div class="modal-overlay hidden" id="noCertModal">
+    <div class="modal-box">
+      <div class="modal-icon">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#E63027" stroke-width="2">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+      </div>
+      <h2 class="modal-title">No se ha detectado certificado digital</h2>
+      <p class="modal-desc">
+        Este equipo no tiene instalado ningun certificado digital valido para firmar documentos.
+        Para usar esta aplicacion necesitas uno.
+      </p>
+      <div class="modal-steps">
+        <h3>¿Como obtener un certificado digital?</h3>
+        <ol>
+          <li><strong>Certificado FNMT (gratuito)</strong><br>Entra en <em>www.sede.fnmt.gob.es</em>, solicita tu certificado de persona fisica y sigue los pasos. Necesitaras verificar tu identidad en una oficina de registro (Hacienda, Seguridad Social, etc.).</li>
+          <li><strong>DNI electronico (DNIe)</strong><br>Si tienes DNIe, conecta un lector de tarjetas al PC. Windows detectara el certificado automaticamente.</li>
+          <li><strong>Certificado de empresa</strong><br>Si tu empresa ya tiene un certificado de representante, pidelo al departamento de administracion e instalalo haciendo doble clic en el archivo <em>.pfx</em> o <em>.p12</em>.</li>
+        </ol>
+      </div>
+      <p class="modal-hint">Una vez instalado el certificado, reinicia esta aplicacion y podras firmar documentos.</p>
+      <button class="modal-btn" id="noCertClose">Entendido</button>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
